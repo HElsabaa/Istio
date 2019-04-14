@@ -1,0 +1,7 @@
+---
+- hosts: kubernetes-master-nodes
+  vars_files:
+  - env_variables
+  tasks:
+  - name: Install Istio using Helm
+    shell: helm install istio/istio --name istio --namespace {{ name_space }} {{ options }}

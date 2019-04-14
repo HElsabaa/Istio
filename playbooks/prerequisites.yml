@@ -1,0 +1,10 @@
+---
+- hosts: kubernetes-master-nodes
+  vars_files:
+  - env_variables
+  tasks:
+  - name: Adding Istio Repo to Helm
+    shell: helm repo add istio {{ repo_name }}
+
+  - name: Update Helm repo list
+    shell: helm repo update}

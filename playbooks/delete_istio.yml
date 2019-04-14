@@ -1,0 +1,7 @@
+---
+- hosts: kubernetes-master-nodes
+  vars_files:
+  - env_variables
+  tasks:
+  - name: Delete Helm installation of istio
+    shell: helm delete --purge istio

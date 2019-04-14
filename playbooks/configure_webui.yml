@@ -1,0 +1,19 @@
+---
+- hosts: kubernetes-master-nodes
+  vars_files:
+  - env_variables
+  tasks:
+  - name: Create needed Secrets for Grafana and Kiali
+    shell: kubectl apply -f ../secerts.yaml
+  
+  - name: Export grafana web ui
+    shell: nohup kubectl -n {{ name_space }} port-forward $(kubectl -n {{ name_space }} get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000 &
+
+  - name: Export Kiali web ui
+    shell: nohup kubectl -n {{ name_space }} port-forward $(kubectl -n {{ name_space }} get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001 &
+
+  - name: Allow Firewall IP
+    shell: firewall-cmd --permanent --zone=public --add-source=$(hostname -i)/24 
+
+  - name: Allow Firewall Ports
+    shell: firewall-cmd --permanent --zone=public --add-port=1-6500/tcp 
