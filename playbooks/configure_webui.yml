@@ -4,7 +4,7 @@
   - env_variables
   tasks:
   - name: Create needed Secrets for Grafana and Kiali
-    shell: kubectl apply -f ../secerts.yaml
+    shell: kubectl apply -f secerts.yaml
   
   - name: Export grafana web ui
     shell: nohup kubectl -n {{ name_space }} port-forward $(kubectl -n {{ name_space }} get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000 &

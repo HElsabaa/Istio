@@ -5,3 +5,6 @@
   tasks:
   - name: Install Istio using Helm
     shell: helm install istio/istio --name istio --namespace {{ name_space }} {{ options }}
+
+  - name: Install Istio using Helm
+    shell: kubectl label namespace default istio-injection=enabled

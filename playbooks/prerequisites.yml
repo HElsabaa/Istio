@@ -7,4 +7,4 @@
     shell: helm repo add istio {{ repo_name }}
 
   - name: Update Helm repo list
-    shell: helm repo update}
+    shell: helm repo update
